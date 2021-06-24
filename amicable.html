@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poiret One">
+<html>
+    <style>
+        body{
+            background-color: #D8B4E2;
+            text-align: center;
+            font-family: Poiret One;
+            font-size: x-large;
+            font-weight: bold;
+        }
+
+        h2{
+            color: #c210B2;
+            text-shadow: 2px 2px 5px #AE759F;
+        }
+
+        p{
+            color: #c210B2;
+
+        }
+
+        button{
+            font-family: Poiret One;
+            background-color: #55286F;
+            color: #c210B2; 
+            font-size: large;
+            font-weight: bold;
+
+        }
+    </style>
+
+    <script>
+       // returns the sum of the integers in array 'factors'
+       function sumOfFactors(factors){
+            var sum = 0;
+            var i;
+            for (i = 0; i < factors.length; i++){
+                sum = sum + factors[i];
+            }
+            return sum;
+       }
+
+       //returns true if sum of 'num1' factors is equal to 'num2' and if 'num2' factors is equal to 'num1' 
+        function isAmicable(num1, num2, factors1, factors2){
+            var amicable = false;
+            var sum2 = sumOfFactors(factors2);
+            var sum1 = sumOfFactors(factors1);
+            if ((num1 == sum2) && (num2 == sum1)){
+                amicable = true;
+            }
+            return amicable;
+        } 
+
+        // returns all the factors of 'num' (good)
+        function getFactors(num){
+            var i;
+            var factors = [];
+            for (i = 1; i < num; i++){
+                if(isAFactor(i,num) == true){
+                    factors.push(i);
+                }
+            }
+            return factors;
+        }
+
+        // returns true if 'factor' is a factor of 'num', false otherwise (good)
+        function isAFactor(factor,num){
+            is_factor = false;
+            if (num % factor == 0){
+                is_factor = true;
+            }
+            return is_factor;
+        }
+        
+        // validates if the two user inputted numbers are amicable or not 
+        function validate(){
+            var num1 = document.forms["user_input"]["num1"].value;
+            var num2 = document.forms["user_input"]["num2"].value;
+            if(num1 == "" && num2 == ""){
+                alert("Please enter two valid numbers.");
+                document.getElementById("results").innerHTML = "";
+
+            }
+            else if (num1 == "" || num2 == ""){
+                alert("Please enter a valid number.")
+                document.getElementById("results").innerHTML = "";
+
+            }
+            else{
+                factors1 = getFactors(num1);
+                factors2 = getFactors(num2);
+                alert("Factors of " + String(num1) + ": " + String(factors1));
+                alert("Factors of " + String(num2) + ": " + String(factors2));
+                if(isAmicable(num1, num2, factors1, factors2) == true){
+                    document.getElementById("results").innerHTML = "The numbers: " + String(num1) + " and " + String(num2) + " are amicable.";
+                }
+                else{
+                    document.getElementById("results").innerHTML = "The numbers: " + String(num1) + " and " + String(num2) + " are not amicable.";
+                }
+            }
+        }
+    </script>
+
+    <body> 
+        <form name="user_input">
+            <h2>Check if two numbers are amicable:</h2>
+            <p>Enter a number:</p> <input type="text" name="num1">
+            </br>
+            <p>Enter another number:</p> <input type="text" name="num2">
+            </br>  
+        </form>
+        </br>
+        <button onclick="validate()">SUBMIT</button> 
+        <div><p id = "results"></p></div> 
+        
+
+    </body>
+</html>
